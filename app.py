@@ -45,4 +45,5 @@ def forecast_result():
     return render_template("forecast.html", forecast=result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+
+    app.run(host="0.0.0.0", port=5000)
