@@ -2,35 +2,94 @@
 
 {% block content %}
 
-<h2 class="text-center">Energy Forecast</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
 
-<form action="/forecast_result" method="post">
+        <!-- CARD -->
+        <div class="card shadow-lg p-4">
 
-<input class="form-control"
-name="history"
-placeholder="Enter last 7 days energy (comma separated)">
+            <h2 class="text-center mb-4">
+                📈 Energy Forecast Dashboard
+            </h2>
 
-<br>
+            <!-- FORM -->
+            <form action="/forecast_result" method="post">
 
-<button class="btn btn-success w-100 animate-btn">
-Forecast
-</button>
+                <label class="form-label">
+                    Enter Last 7 Days Energy Usage (comma separated)
+                </label>
 
-</form>
+                <input
+                    class="form-control form-control-lg"
+                    name="history"
+                    placeholder="Example: 12,14,13,15,16,18,17"
+                    required
+                >
+
+                <br>
+
+                <button
+                    class="btn btn-success w-100 animate-btn">
+                    🔮 Forecast Energy
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
 
 {% if forecast %}
 
-<div id="chart"></div>
+<!-- RESULT CARD -->
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-10">
+
+        <div class="card shadow-lg p-4">
+
+            <h4 class="text-center mb-3">
+                ⚡ 7‑Day Energy Forecast
+            </h4>
+
+            <!-- Chart -->
+            <div id="chart" style="height:400px;"></div>
+
+        </div>
+
+    </div>
+</div>
+
 
 <script>
 var data = [{
     y: {{ forecast | safe }},
     type: "scatter",
     mode: "lines+markers",
-    line: {color: "green"}
+    marker: {
+        size: 8,
+        color: "#28a745"
+    },
+    line: {
+        width: 3,
+        color: "#28a745"
+    },
+    name: "Forecast"
 }];
 
-Plotly.newPlot("chart", data);
+var layout = {
+    title: "Predicted Energy Consumption",
+    xaxis: {
+        title: "Days Ahead"
+    },
+    yaxis: {
+        title: "Energy (kWh)"
+    },
+    template: "plotly_white"
+};
+
+Plotly.newPlot("chart", data, layout);
 </script>
 
 {% endif %}
