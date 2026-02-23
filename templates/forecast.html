@@ -1,97 +1,27 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="row justify-content-center">
-    <div class="col-lg-8">
+<h2 class="text-center">Energy Forecast</h2>
 
-        <!-- CARD -->
-        <div class="card shadow-lg p-4">
-
-            <h2 class="text-center mb-4">
-                📈 Energy Forecast Dashboard
-            </h2>
-
-            <!-- FORM -->
-            <form action="/forecast_result" method="post">
-
-                <label class="form-label">
-                    Enter Last 7 Days Energy Usage (comma separated)
-                </label>
-
-                <input
-                    class="form-control form-control-lg"
-                    name="history"
-                    placeholder="Example: 12,14,13,15,16,18,17"
-                    required
-                >
-
-                <br>
-
-                <button
-                    class="btn btn-success w-100 animate-btn">
-                    🔮 Forecast Energy
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-</div>
-
+<form action="/forecast_result" method="post">
+<input class="form-control" name="history"
+placeholder="100,120,130,125,140,150,160">
+<br>
+<button class="btn btn-success w-100">Forecast</button>
+</form>
 
 {% if forecast %}
-
-<!-- RESULT CARD -->
-<div class="row justify-content-center mt-5">
-    <div class="col-lg-10">
-
-        <div class="card shadow-lg p-4">
-
-            <h4 class="text-center mb-3">
-                ⚡ 7‑Day Energy Forecast
-            </h4>
-
-            <!-- Chart -->
-            <div id="chart" style="height:400px;"></div>
-
-        </div>
-
-    </div>
-</div>
-
+<div id="chart"></div>
 
 <script>
 var data = [{
-    y: {{ forecast | safe }},
-    type: "scatter",
-    mode: "lines+markers",
-    marker: {
-        size: 8,
-        color: "#28a745"
-    },
-    line: {
-        width: 3,
-        color: "#28a745"
-    },
-    name: "Forecast"
+y: {{ forecast | safe }},
+type:'scatter',
+mode:'lines+markers'
 }];
 
-var layout = {
-    title: "Predicted Energy Consumption",
-    xaxis: {
-        title: "Days Ahead"
-    },
-    yaxis: {
-        title: "Energy (kWh)"
-    },
-    template: "plotly_white"
-};
-
-Plotly.newPlot("chart", data, layout);
+Plotly.newPlot("chart", data);
 </script>
-
 {% endif %}
 
 {% endblock %}
