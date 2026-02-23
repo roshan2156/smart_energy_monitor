@@ -1,74 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Smart Energy</title>
 
-    <title>⚡ Smart Energy Monitoring</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-          rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- Plotly -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <body id="body">
 
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <div class="container">
+<nav class="navbar navbar-dark bg-dark">
+<div class="container">
+<a class="navbar-brand">⚡ Smart Energy</a>
 
-        <a class="navbar-brand fw-bold" href="/">
-            ⚡ Smart Energy
-        </a>
-
-        <div>
-            <a class="btn btn-outline-light me-2" href="/">
-                <i class="bi bi-lightning-charge"></i> Predict
-            </a>
-
-            <a class="btn btn-outline-light me-3" href="/forecast">
-                <i class="bi bi-graph-up"></i> Forecast
-            </a>
-
-            <!-- Dark Mode Button -->
-            <button class="btn btn-warning" onclick="toggleMode()">
-                🌙
-            </button>
-        </div>
-
-    </div>
-</nav>
-
-<!-- ================= MAIN CONTENT ================= -->
-<div class="container mt-4">
-
-    {% block content %}
-    {% endblock %}
-
+<div>
+<a href="/" class="btn btn-outline-light">Predict</a>
+<a href="/forecast" class="btn btn-outline-light">Forecast</a>
+<button onclick="toggleMode()" class="btn btn-warning">🌙</button>
 </div>
 
-<!-- ================= FOOTER ================= -->
-<footer class="text-center mt-5 mb-3 text-muted">
-    <small>
-        © 2026 Smart Energy Monitoring | ML + LSTM Prediction System
-    </small>
-</footer>
+</div>
+</nav>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container mt-4">
+{% block content %}{% endblock %}
+</div>
 
-<!-- Custom JS -->
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
