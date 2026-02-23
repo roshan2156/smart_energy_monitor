@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from energy_model import predict_energy
 from lstm_utils import forecast_energy
 import numpy as np
+import os
 
 app = Flask(__name__)
 
@@ -45,5 +46,5 @@ def forecast_result():
     return render_template("forecast.html", forecast=result)
 
 if __name__ == "__main__":
-
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
