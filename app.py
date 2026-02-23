@@ -12,7 +12,6 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-
     current = float(request.form["current"])
     temperature = float(request.form["temperature"])
     month = int(request.form["month"])
@@ -37,14 +36,14 @@ def forecast():
 
 @app.route("/forecast_result", methods=["POST"])
 def forecast_result():
-
     values = request.form["history"]
     history = np.array([float(x) for x in values.split(",")]).reshape(-1,1)
 
     result = forecast_energy(history, 7)
 
-    return render_template("forecast.html", forecast=result)
+    return render_template("forecast.html", forecast=result.tolist())
 
+# IMPORTANT FOR RENDER PORT
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
