@@ -1,106 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="row justify-content-center">
-<div class="col-lg-10">
+<h2 class="text-center">Energy Prediction</h2>
 
-<h2 class="text-center mb-4">
-⚡ Energy Consumption Prediction
-</h2>
-
-<!-- FORM CARD -->
 <form action="/predict" method="post" onsubmit="showLoader()">
 
-<div class="card shadow-lg p-4">
+<div class="card p-4 shadow">
 
-<div class="row g-3">
-
+<div class="row">
 <div class="col-md-4">
-<label class="form-label">Current (A)</label>
+<label>Current</label>
 <input class="form-control" name="current" required>
 </div>
 
 <div class="col-md-4">
-<label class="form-label">Temperature (°C)</label>
+<label>Temperature</label>
 <input class="form-control" name="temperature" required>
 </div>
 
 <div class="col-md-4">
-<label class="form-label">Usage Hours</label>
+<label>Usage Hours</label>
 <input class="form-control" name="usage" required>
 </div>
-
-<div class="col-md-4">
-<label class="form-label">Month</label>
-<input class="form-control" name="month" required>
-</div>
-
-<div class="col-md-4">
-<label class="form-label">Day</label>
-<input class="form-control" name="day" required>
-</div>
-
-<div class="col-md-4">
-<label class="form-label">Hour</label>
-<input class="form-control" name="hour" required>
-</div>
-
 </div>
 
 <br>
 
-<button class="btn btn-primary w-100 animate-btn">
-🔮 Predict Energy
-</button>
+<div class="row">
+<div class="col-md-4"><input class="form-control" name="month" placeholder="Month"></div>
+<div class="col-md-4"><input class="form-control" name="day" placeholder="Day"></div>
+<div class="col-md-4"><input class="form-control" name="hour" placeholder="Hour"></div>
+</div>
+
+<br>
+
+<button class="btn btn-primary w-100">Predict</button>
 
 </div>
 </form>
 
-</div>
-</div>
-
-
-<!-- LOADER -->
 <div id="loader" class="loader"></div>
 
-
 {% if energy %}
-
-<!-- RESULT SECTION -->
-<div class="row justify-content-center mt-5">
-<div class="col-lg-10">
-
-<div class="row text-center g-4">
-
-<!-- ENERGY -->
-<div class="col-md-4">
-<div class="card result-card shadow">
-<h5>⚡ Energy</h5>
-<h3>{{ energy }} kWh</h3>
+<div class="result-card mt-4">
+<h4>Result</h4>
+<p>⚡ {{energy}} kWh</p>
+<p>💰 ₹ {{cost}}</p>
+<p>🌱 {{carbon}} kg CO₂</p>
 </div>
-</div>
-
-<!-- COST -->
-<div class="col-md-4">
-<div class="card result-card shadow">
-<h5>💰 Cost</h5>
-<h3>₹ {{ cost }}</h3>
-</div>
-</div>
-
-<!-- CARBON -->
-<div class="col-md-4">
-<div class="card result-card shadow">
-<h5>🌱 Carbon</h5>
-<h3>{{ carbon }} kg</h3>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
 {% endif %}
 
 {% endblock %}
