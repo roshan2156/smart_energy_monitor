@@ -1,68 +1,106 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<h2 class="text-center mb-4">Energy Consumption Prediction</h2>
+<div class="row justify-content-center">
+<div class="col-lg-10">
 
+<h2 class="text-center mb-4">
+⚡ Energy Consumption Prediction
+</h2>
+
+<!-- FORM CARD -->
 <form action="/predict" method="post" onsubmit="showLoader()">
 
-<div class="card shadow p-4">
+<div class="card shadow-lg p-4">
 
-<div class="row">
+<div class="row g-3">
+
 <div class="col-md-4">
-<label>Current</label>
+<label class="form-label">Current (A)</label>
 <input class="form-control" name="current" required>
 </div>
 
 <div class="col-md-4">
-<label>Temperature</label>
+<label class="form-label">Temperature (°C)</label>
 <input class="form-control" name="temperature" required>
 </div>
 
 <div class="col-md-4">
-<label>Usage Hours</label>
+<label class="form-label">Usage Hours</label>
 <input class="form-control" name="usage" required>
 </div>
-</div>
 
-<br>
-
-<div class="row">
 <div class="col-md-4">
-<label>Month</label>
-<input class="form-control" name="month">
+<label class="form-label">Month</label>
+<input class="form-control" name="month" required>
 </div>
 
 <div class="col-md-4">
-<label>Day</label>
-<input class="form-control" name="day">
+<label class="form-label">Day</label>
+<input class="form-control" name="day" required>
 </div>
 
 <div class="col-md-4">
-<label>Hour</label>
-<input class="form-control" name="hour">
+<label class="form-label">Hour</label>
+<input class="form-control" name="hour" required>
 </div>
+
 </div>
 
 <br>
 
 <button class="btn btn-primary w-100 animate-btn">
-Predict Energy
+🔮 Predict Energy
 </button>
 
 </div>
 </form>
 
-<!-- Loader -->
+</div>
+</div>
+
+
+<!-- LOADER -->
 <div id="loader" class="loader"></div>
 
+
 {% if energy %}
-<div class="result-card mt-4">
-<h4>Prediction Result</h4>
-<p>⚡ Energy: {{energy}} kWh</p>
-<p>💰 Cost: ₹ {{cost}}</p>
-<p>🌱 Carbon: {{carbon}} kg</p>
+
+<!-- RESULT SECTION -->
+<div class="row justify-content-center mt-5">
+<div class="col-lg-10">
+
+<div class="row text-center g-4">
+
+<!-- ENERGY -->
+<div class="col-md-4">
+<div class="card result-card shadow">
+<h5>⚡ Energy</h5>
+<h3>{{ energy }} kWh</h3>
 </div>
+</div>
+
+<!-- COST -->
+<div class="col-md-4">
+<div class="card result-card shadow">
+<h5>💰 Cost</h5>
+<h3>₹ {{ cost }}</h3>
+</div>
+</div>
+
+<!-- CARBON -->
+<div class="col-md-4">
+<div class="card result-card shadow">
+<h5>🌱 Carbon</h5>
+<h3>{{ carbon }} kg</h3>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 {% endif %}
 
 {% endblock %}
